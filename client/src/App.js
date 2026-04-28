@@ -14,6 +14,7 @@ function App() {
   const [txStatus, setTxStatus] = useState('');
   const [txHash, setTxHash] = useState('');
   const [transactions, setTransactions] = useState([]);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const connectWallet = async () => {
     setLoading(true);
@@ -47,6 +48,7 @@ function App() {
   };
 
   const sendPayment = async () => {
+    setShowConfirm(false);
     setTxStatus('Sending...');
     setError('');
     setTxHash('');
@@ -116,10 +118,32 @@ function App() {
           <input type="number" placeholder="Amount (XLM)"
             value={amount} onChange={e => setAmount(e.target.value)}
             style={{ ...inputStyle, marginTop: '10px' }} />
-          <button onClick={sendPayment} disabled={!destination || !amount || !secretKey}
+
+          <button onClick={() => setShowConfirm(true)} disabled={!destination || !amount || !secretKey}
             style={{ ...btnStyle, background: '#28a745' }}>
             Send Payment
           </button>
+
+          {/* Confirmation Popup */}
+          {showConfirm && (
+            <div style={{ background: '#fff3cd', border: '1px solid #ffc107', borderRadius: '8px', padding: '16px', marginTop: '12px' }}>
+              <p style={{ margin: '0 0 10px', fontWeight: 'bold' }}>⚠️ Confirm Payment</p>
+              <p style={{ margin: '0 0 10px', fontSize: '14px' }}>
+                Send <strong>{amount} XLM</strong> to <strong>{destination.slice(0, 8)}...{destination.slice(-6)}</strong>?
+              </p>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <button onClick={sendPayment}
+                  style={{ ...btnStyle, background: '#28a745', marginTop: 0, flex: 1 }}>
+                  ✅ Confirm
+                </button>
+                <button onClick={() => setShowConfirm(false)}
+                  style={{ ...btnStyle, background: '#dc3545', marginTop: 0, flex: 1 }}>
+                  ❌ Cancel
+                </button>
+              </div>
+            </div>
+          )}
+
           {txStatus && <p style={{ color: 'green', marginTop: '10px' }}>{txStatus}</p>}
           {txHash && (
             <p style={{ fontSize: '13px', wordBreak: 'break-all' }}>
