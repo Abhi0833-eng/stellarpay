@@ -49,7 +49,7 @@ npm start
 ## 🔄 Improvements Based on User Feedback
 Based on collected feedback, we will implement:
 1. **Confirmation popup before sending** — Users requested this to avoid accidental payments
-   - Git commit: _to be added after implementation_
+   - Git commit: https://github.com/Abhi0833-eng/stellarpay/commit/28dcb8e
 2. **QR code for wallet address** — Users want easier way to share address
 3. **Show transaction fee before sending** — Users want transparency on fees
 4. **Contact book for saved addresses** — Users want to save frequent addresses
