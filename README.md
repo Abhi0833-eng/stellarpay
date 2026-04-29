@@ -1,6 +1,16 @@
-# 🌟 StellarPay
+# 🌍 StellarPay — Cross-Border Remittance on Stellar
 
-> A DeFi payments app built on the Stellar Testnet. Send XLM instantly with real-time balance and transaction history.
+> Empowering migrant workers to send money home instantly with near-zero fees using the Stellar blockchain.
+
+## 💡 Problem Statement
+Migrant workers worldwide send over $800 billion home annually, but lose 5–8% to banks and services like Western Union. A $500 transfer costs $25–40 in fees and takes 3–5 days.
+
+**StellarPay solves this** by using the Stellar network to send money in under 5 seconds with fees under $0.01.
+
+## 🎯 Real-World Use Case
+A worker in the UAE wants to send money to their family in India:
+- ❌ Traditional: 5% fee + 3 days wait
+- ✅ StellarPay: 0.001% fee + 5 seconds
 
 ## 🔴 Live Demo
 [https://stellarpay-five.vercel.app](https://stellarpay-five.vercel.app)
@@ -10,17 +20,23 @@
 
 ## ✨ Features
 - 🔗 Connect Stellar testnet wallet
-- 💸 Send XLM to any testnet address
-- 📜 View transaction history
-- 💰 Real-time XLM balance
+- 💸 Send XLM cross-border instantly
+- 💱 See real INR equivalent value before sending
+- ✅ Confirmation popup to prevent mistakes
+- 📜 View full transaction history
 - 🔗 Transaction links to Stellar Explorer
+
+## 🌐 Why Stellar?
+- Stellar settles transactions in 3–5 seconds
+- Fees are less than $0.001 per transaction
+- Built specifically for cross-border payments
+- Supports multiple currencies via anchors
 
 ## 🏗️ Architecture
 See [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ## 🛠️ Tech Stack
 - **Frontend:** React.js
-- **Backend:** Node.js + Express
 - **Blockchain:** Stellar Testnet (Horizon API)
 - **SDK:** @stellar/stellar-sdk
 - **Deployment:** Vercel
@@ -33,27 +49,23 @@ npm install
 npm start
 ```
 
-## 👥 Testnet Users
-| Name | Wallet Address |
-|------|---------------|
-| User 1 | GAE5YJQQXWUUEADJCZSF3D5TGMYFIWCQTD4DLADXDS3DDXPDHHOIW4YZ |
-| User 2 | GBQI6DPFRFZMTDO4KFUPB5D2F6WCQOZEGEBE7OTBHVXXLD76BJFQN4SR |
-| User 3 | GCO527YCC6DNDK3K6FN654WXAINDGNB35FUFAN3LURDENIIBD7ZFAJN6 |
-| User 4 | GDSFCL6ZLYDNYFYKCXDFLPOQSAOYFBICH6L6Z53SYO6S6BZL4UEPQD4M |
-| User 5 | GBXAOA3SLGEUETC33VUBIS62TPDEHVO2MFMNV5LVTKTWBEJQRAX23LYI |
+## 👥 Testnet Users (Migrant Worker Simulation)
+| Name | Wallet Address | Scenario |
+|------|---------------|----------|
+| User 1 | GAE5YJQQXWUUEADJCZSF3D5TGMYFIWCQTD4DLADXDS3DDXPDHHOIW4YZ | Worker in UAE sending to India |
+| User 2 | GBQI6DPFRFZMTDO4KFUPB5D2F6WCQOZEGEBE7OTBHVXXLD76BJFQN4SR | Worker in UK sending to India |
+| User 3 | GCO527YCC6DNDK3K6FN654WXAINDGNB35FUFAN3LURDENIIBD7ZFAJN6 | Worker in USA sending to India |
+| User 4 | GDSFCL6ZLYDNYFYKCXDFLPOQSAOYFBICH6L6Z53SYO6S6BZL4UEPQD4M | Worker in Canada sending to India |
+| User 5 | GBXAOA3SLGEUETC33VUBIS62TPDEHVO2MFMNV5LVTKTWBEJQRAX23LYI | Worker in Singapore sending to India |
 
 ## 📊 User Feedback
 - [Google Form](https://forms.gle/aTUWwF7845ED4kiK7)
 - [View Excel Sheet](./user-feedback.xlsx)
 
 ## 🔄 Improvements Based on User Feedback
-Based on collected feedback, we will implement:
-1. **Confirmation popup before sending** — Users requested this to avoid accidental payments
+1. **Confirmation popup before sending** — prevents accidental transfers
    - Git commit: https://github.com/Abhi0833-eng/stellarpay/commit/28dcb8e
-2. **QR code for wallet address** — Users want easier way to share address
-3. **Show transaction fee before sending** — Users want transparency on fees
-4. **Contact book for saved addresses** — Users want to save frequent addresses
-5. **Show XLM price in INR/USD** — Users want real value context
+2. **INR equivalent display** — users want to see real value in local currency
 
 ## 📋 Submission Checklist
 - ✅ Public GitHub repository
@@ -63,4 +75,5 @@ Based on collected feedback, we will implement:
 - ✅ Google Form feedback collected
 - ✅ Excel feedback sheet
 - ✅ Architecture document
+- ✅ Smart contract in /contracts folder
 - ✅ 10+ meaningful commits
