@@ -1,85 +1,82 @@
 # 🏗️ StellarPay Architecture
 
 ## Overview
-StellarPay is a cross-border remittance application built on the Stellar Testnet. It solves the problem of high fees and slow transfers for migrant workers sending money home. Traditional remittance services charge 5–8% fees and take 3–5 days. StellarPay enables transfers in under 5 seconds with fees under $0.001.
+StellarPay is a decentralized salary and freelancer payment system built on 
+the Stellar blockchain. It eliminates the need for intermediaries like Upwork, 
+PayPal, or banks when paying freelancers across borders.
 
-## Real-World Problem → Stellar Solution
-| Problem | Traditional | StellarPay |
-|---------|------------|------------|
-| Transfer fee | 5–8% | <$0.001 |
-| Transfer time | 3–5 days | <5 seconds |
-| Availability | Bank hours | 24/7 |
-| Minimum amount | $10–50 | Any amount |
+## Problem → Solution
+| Problem | Traditional Platforms | StellarPay |
+|---------|----------------------|------------|
+| Platform fee | 20% (Upwork/Fiverr) | <$0.001 |
+| Transfer time | 30–45 days | <5 seconds |
+| PayPal fee | 3–5% | <$0.001 |
+| Availability | Business hours | 24/7 |
+| Middlemen | Banks, platforms | None |
 
 ## System Architecture
-
-[Migrant Worker - Browser]
-|
-▼
+[Employer - Browser]
+        |
+        ▼
 [React Frontend - Vercel]
-|
-├──► [CoinGecko API] — Live XLM/INR/USD price
-|
-└──► [Stellar Horizon API - Testnet]
-|
-▼
-[Stellar Testnet Network]
+        |
+        ├──► [CoinGecko API] — Live XLM/INR/USD price feed
+        |
+        └──► [Stellar Horizon API - Testnet]
+                    |
+                    ▼
+          [Stellar Testnet Network]
+                    |
+                    ▼
+          [Freelancer Wallet - Anywhere in World]
 
 ## Components
 
 ### Frontend (React.js)
-- **App.js** — Main component: wallet connect, send payment, INR price display, transaction history
-- **Stellar SDK** — @stellar/stellar-sdk for building and signing transactions
+- **App.js** — Wallet connect, salary send, live price display,
+  payment history
+- **Stellar SDK** — Builds and signs transactions client-side
 - **CoinGecko API** — Real-time XLM price in INR and USD
-- **Horizon API** — Direct calls to horizon-testnet.stellar.org
+- **Horizon API** — Fetches account data and submits transactions
 
 ### Smart Contract Layer (/contracts)
-- **payment.js** — Contract functions for payment execution, balance checking, and wallet validation
+- **payment.js** — Core contract functions:
+  - executePayment() — sends XLM salary to freelancer
+  - getBalance() — checks wallet balance
+  - validateWalletAddress() — validates Stellar address format
 
 ### Backend (Node.js + Express)
-- **index.js** — Express server ready for future API endpoints
-- **Port 5000** — Local development
-
-### Blockchain Layer
-- **Network:** Stellar Testnet
-- **API:** Horizon REST API
-- **Operations:** Payment, Account creation
-- **Asset:** XLM (native Stellar token)
+- **index.js** — Express server for future features
+  (invoice generation, payment scheduling)
 
 ## Data Flow
 
-### Wallet Connect Flow
+### Employer Pays Freelancer
+User connects wallet with Public + Secret Key
+→ Enters freelancer wallet address + salary amount
+→ App shows live INR/USD equivalent
+→ Confirmation popup shows exact amount + fee (<$0.001)
+→ Employer confirms → SDK builds transaction
+→ Signed in browser (key never sent to server)
+→ Submitted to Stellar network
+→ Freelancer receives payment in <5 seconds
+→ Transaction history updates automatically
 
-User enters Public Key
-→ Fetch account from Horizon API
-→ Display XLM balance
-→ Fetch live INR/USD equivalent from CoinGecko
-→ Load last 5 transactions
+## Security
+- Secret keys never leave the browser
+- No keys stored in database or logs
+- Confirmation popup prevents accidental payments
+- Non-custodial — users control their own funds
+- Testnet environment for safe testing
 
-### Send Remittance Flow
-
-User enters recipient + amount + secret key
-→ Show INR equivalent of amount
-→ User clicks Send → Confirmation popup appears
-→ User confirms → Transaction built with Stellar SDK
-→ Signed in browser (key never leaves browser)
-→ Submitted to Horizon API → Settled in <5 seconds
-→ Balance and history auto-refresh
-
-## Security Considerations
-- Secret keys never leave the browser (no server storage)
-- No keys logged or stored anywhere
-- Confirmation popup prevents accidental transfers
-- Input validation on all wallet addresses
-- Testnet only — safe for user testing
+## Why Stellar for Freelancer Payments?
+- Stellar was built for fast, low-cost global payments
+- 3–5 second finality (faster than any bank)
+- Fees under $0.001 (vs 20% on Upwork)
+- Used in production by IBM and MoneyGram
+- Supports USDC for stable salary payments
+- Open network — no account approval needed
 
 ## Deployment
 - **Frontend:** Vercel (https://stellarpay-five.vercel.app)
-- **Backend:** Local (ready for Railway/Render deployment)
-
-## Why Stellar for Remittance?
-- Stellar was founded specifically for cross-border payments
-- 3–5 second settlement time
-- Fees under $0.001 per transaction
-- Supports fiat currency anchors (USDC, etc.)
-- Used by real remittance companies like MoneyGram
+- **Backend:** Local (deployable to Railway/Render)
